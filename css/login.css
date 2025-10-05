@@ -1,0 +1,169 @@
+/* Fundo base */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Bolas decorativas */
+.bola {
+  position: absolute;
+  border-radius: 50%;
+  background: #F9B012;
+  opacity: 1;
+  z-index: 0;
+}
+
+.bola1 { width: 220px; height: 220px; top: -80px; left: -100px; }
+.bola2 { width: 180px; height: 180px; top: 40px; right: -90px; }
+.bola3 { width: 120px; height: 120px; bottom: 100px; left: -60px; }
+.bola4 { width: 200px; height: 200px; bottom: -120px; right: 40px; }
+.bola5 { width: 90px; height: 90px; top: 50%; left: 20%; transform: translate(-50%, -50%); }
+.bola6 { width: 140px; height: 140px; top: 60%; right: 10%; }
+.bola7 { width: 100px; height: 100px; top: 20%; left: 70%; }
+
+/* Container principal */
+.container-form {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.container-form h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.container-form h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #F9B012;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Inputs */
+.container-form label {
+  text-align: left;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 1rem 0 0.4rem;
+  color: #444;
+}
+
+.container-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #F9B012;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.container-form input:focus {
+  border-color: F9B012;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249,176,18,0.25);
+}
+
+/* Botões */
+.acoes-login {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.botao-primario {
+  background: #F9B012;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.botao-primario:hover {
+  background: F9B012;
+  transform: translateY(-2px);
+}
+
+.botao-secundario {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.botao-secundario:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+/* Mensagens de erro/sucesso */
+.mensagem-erro,
+.mensagem-ok {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+
+.mensagem-erro {
+  background: #ffe0e0;
+  color: #b22;
+  border: 1px solid #d88;
+}
+
+.mensagem-ok {
+  background: #e5f7eb;
+  color: #2a7d46;
+  border: 1px solid #5abf85;
+}
+
+.mensagem-erro,
+.mensagem-ok {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.mensagem-erro.oculto,
+.mensagem-ok.oculto {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Rodapé */
+.footer-login {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.footer-login img {
+  width: 200px;
+  height: 150 px;
+  opacity: 1;
+}
