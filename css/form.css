@@ -1,0 +1,93 @@
+.container-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.grupo-botoes {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+    
+}
+
+.botao-voltar {
+    font-size: 20px;
+    background-color: rgb(255, 0, 0);
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 15px;
+    border-radius: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+}
+
+.botao-salvar {
+    font-size: 20px;
+    background-color: #FFAE00;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 15px;
+    border-radius: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+}
+
+.container-form{
+
+    width: 20%;
+    padding-top: 10px;
+
+}
+
+.container-form label {
+    display: block;
+    text-align: left;
+    margin: 20px 0 20px 0;;
+    font-weight: bold;
+    font-size: 25px;
+    color: #ffffff;
+}
+
+.container-form input{
+    width: 100%;
+    
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 2px solid #ffb703;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.container-form select { 
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 2px solid #ffb703;
+    border-radius: 8px;
+    background-color: #ffffff;
+    
+    font-size: 16px;
+    color: #333; 
+}
+
+.container-form input::placeholder {
+    color: #999;
+    font-size: 18px;
+}
+
+.container-form a:hover,
+.botao-salvar:hover,
+.botao-voltar:hover {
+  cursor: pointer;
+  filter: saturate(1050%);
+}

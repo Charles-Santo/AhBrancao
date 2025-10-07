@@ -1,0 +1,2 @@
+O email do admin é: Admin_malvado@Gmail.com
+e a Senha é: 1234

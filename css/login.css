@@ -1,0 +1,118 @@
+.config-fundo-login {
+    background: url('../img/bolas-crud-usuarios.png') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+.card-login {
+    background-color: white;
+    width: 400px;
+    height: 100%;
+    padding: 30px;
+    margin-bottom: 110px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-login h1 {
+    font-size: 44px;
+    margin-bottom: 100px;
+    text-decoration: underline;
+    text-decoration-style: solid #ffb703;
+    text-decoration-color: #ffb703;
+    color: #000000;
+    
+}
+
+.card-login label {
+    display: block;
+    text-align: left;
+    margin: 20px 0 20px 0;;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+}
+
+.card-login input{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ffb703;
+    border-radius: 8px;
+    background-color: #ebebeb;
+}
+
+.card-login input::placeholder {
+    color: #999;
+    font-size: 18px;
+}
+
+.acoes-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.botao-primario {
+    font-size: 20px;
+    background-color: #ffb703;
+    color: white;
+    margin-top: 20px;
+    border: none;
+    padding: 15px;
+    border-radius: 28px;
+    cursor: pointer;
+}
+
+.botao-secundario {
+    font-size: 20px;
+    background-color: white;
+    color: #ffb703;
+    border: 2px solid #ffb703;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    
+}
+
+.conteudo-login {
+  margin-bottom: 50px;
+}
+
+.mensagem-erro {
+    background-color: #ffe5e5;
+    color: #d90429;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.mensagem-ok {
+    background-color: #e9ffd8;
+    color: #007f00;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+.logo-rodape {
+    width: 400px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}

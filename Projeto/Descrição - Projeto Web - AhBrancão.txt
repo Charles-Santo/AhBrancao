@@ -1,0 +1,15 @@
+GRUPO PROJETO:  ANDRIW e CHARLES
+
+TURMA: INFORMÁTICA 2 TURMA A
+
+TÍTULO PROJETO: AhBrancão!
+
+Este projeto é uma rede social para compartilhamento de memes.
+A aplicação permite que os usuários se cadastrem, publiquem memes, comentem, 
+curtam postagens e interajam um com os outros.
+Administradores têm a função de moderar o conteúdo,
+podendo aprovar ou excluir memes, gerenciar categorias e gerenciar outros usuários,
+garantindo que apenas publicações apropriadas sejam exibidas.
+O sistema também inclui funcionalidades de amizade e seguidores,
+organização de memes por categorias,
+seguir usuários fazem os memes publicados por eles aparecerem em uma nova categoria chamada amigos.

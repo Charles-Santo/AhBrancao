@@ -1,0 +1,151 @@
+body{
+
+    background-image: url("../img/bolas-crud-usuarios.png");
+    image-repeat: no-repeat;
+    background-size: cover;
+
+}
+.container-principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-principal h1{
+    margin-top: 20px;
+    font-size: 32px;
+
+}
+
+.container-principal h2{
+
+    margin-top: 20px;
+    font-size: 32px;
+    text-decoration: underline;
+    margin-bottom: 40px;
+    text-underline-position: under;
+
+}
+
+.container-table {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  border: solid #FFAE00 4px;
+  height: 50vh;
+  width: 70%;
+  margin: 0px 250px 40px;
+  color: black;
+}
+
+table {
+  width: 90%;
+  height: 60%;
+  margin: auto 0;
+  border-radius: 5px;
+  border-collapse: separate;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table,
+th,
+td {
+  border: 2px solid #FFAE00;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table th {
+  padding: 11px 0 11px;
+  background-color: #ffffff;
+  color: #333b1e;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  padding: 8px;
+}
+
+table tr {
+  border: 1px solid #ddd;
+}
+
+table td {
+  color: #000;
+  font-size: 18px;
+  padding: 8px;
+}
+
+
+
+.container-lista {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid #ffffff 0.5px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 3px 0;
+}
+
+.container-lista h3 {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+table tbody tr td a,
+.botao-cadastrar,
+.botao-excluir {
+  padding: 3px 10px;
+  border-radius: 30px;
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: 0.7s;
+  border: none;
+  font-size: 18px;
+}
+
+td {
+    text-align: center;
+}
+
+
+
+table tbody tr td a:hover,
+.botao-cadastrar:hover,
+.botao-excluir:hover {
+  cursor: pointer;
+  filter: saturate(1050%);
+}
+
+.botao-cadastrar {
+  background: #FFAE00;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 40px;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 10px 10px;
+  border: solid #ffffff 2px;
+}
+
+.botao-editar {
+  background: #FFAE00;
+  font-size: 20px;
+  padding: 10px 40px;
+}
+
+
+.botao-excluir {
+  background: #C82525;
+  font-size: 20px;
+  padding: 10px 40px;
+  
+}
+
