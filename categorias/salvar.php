@@ -3,63 +3,63 @@ require __DIR__ . "/../src/conexao-bd.php";
 require __DIR__ . "/../src/Modelo/Categoria.php";
 require __DIR__ . "/../src/Repositorio/CategoriaRepositorio.php";
 
-$categoriaRepositorio = new CategoriaRepositorio($pdo);
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $categoria = new Categoria(
-        $_POST['codigo'] ?: null,
-        $_POST['nome'],
-        $_POST['descricao'],
-        $_POST['imagem'] ?? ''
-    );
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ../login.php');
+    exit;
 }
-
-if ($categoria->getCodigo()) {
-
-    $categoriaRepositorio->atualizar($categoria);
-} else {
-
-    $categoriaRepositorio->salvar($categoria);
-}
-
-header("Location: listar.php");
-exit();
 
 $repo = new CategoriaRepositorio($pdo);
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: listar.php');
     exit;
 }
 
-$codigo = isset($_POST['codigo']) && $_POST['codigo'] !== '' ? (int)$_POST['codigo'] : null;
-$nome = trim($_POST['nome']   ?? '');
-$descricao = trim($_POST['descricao'] ?? '');
-$imagem = trim($_POST['imagem'] ?? '');
 
-if ($nome === '' || $descricao === '' || (!$codigo === '')) {
-    header('Location: form.php' . ($codigo ? '?codigo=' . $codigo . '&erro=campos' : '?erro=campos'));
+$codigo = isset($_POST['codigo']) && $_POST['codigo'] !== '' ? (int)$_POST['codigo'] : null;
+$nome = trim($_POST['nome'] ?? '');
+$descricao = trim($_POST['descricao'] ?? '');
+
+if ($nome === '' || $descricao === '') {
+    header('Location: form.php' . ($codigo ? '?id=' . $codigo . '&erro=campos' : '?erro=campos'));
     exit;
 }
+
+
+$imagem = $_FILES['imagem'] ?? null;
+$caminhoImagem = null;
+
 
 if ($codigo) {
+    $categoriaExistente = $repo->buscar($codigo);
+    $caminhoImagem = $categoriaExistente ? $categoriaExistente->getImagem() : null;
+}
 
-    $existente = $repo->buscar($codigo);
-    if (!$existente) {
-        header('Location: listar.php?erro=inexistente');
-        exit;
+
+if ($imagem && $imagem['error'] === UPLOAD_ERR_OK) {
+    $pastaUploads = __DIR__ . '/../uploads/';
+
+
+    $nomeArquivo = uniqid() . '-' . basename($imagem['name']);
+    $destino = $pastaUploads . $nomeArquivo;
+
+    if (move_uploaded_file($imagem['tmp_name'], $destino)) {
+        $caminhoImagem = 'uploads/' . $nomeArquivo; 
     }
+}
 
 
-    $categoria = new Categoria($codigo, $nome, $descricao, $imagem ?? '');
+$categoria = new Categoria($codigo, $nome, $descricao, $caminhoImagem);
+
+
+if ($codigo) {
     $repo->atualizar($categoria);
     header('Location: listar.php?ok=1');
-    exit;
 } else {
-    
-    $categoria = new Categoria(null, $nome, $descricao, $imagem ?? '');
     $repo->salvar($categoria);
     header('Location: listar.php?novo=1');
-    exit;
 }
+
+exit;

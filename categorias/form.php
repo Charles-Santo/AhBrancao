@@ -81,7 +81,7 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
 
         <div class="topo-direita">
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="../logout.php" method="post" style="display:inline;">
+            <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
@@ -97,7 +97,7 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
                 <?php if (isset($_GET['erro']) &&   $_GET['erro'] === 'campos'): ?>
                     <p class="mensagem-erro">Preencha todos os campos.</p>
                 <?php endif; ?>
-                <form action="<?= $actionForm ?>" method="post" class="form-produto">
+                <form action="<?= $actionForm ?>" method="post" enctype="multipart/form-data">
                     <?php if ($modoEdicao): ?>
                         <input type="hidden" name="codigo" value="<?= (int)$categoria->getCodigo() ?>">
                     <?php endif; ?>
@@ -115,6 +115,14 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
                     <div>
                         <label for="imagem">Imagem</label>
                         <input id="imagem" name="imagem" type="file" placeholder="Insira a Imagem" accept="image/*" value="<?= htmlspecialchars($valorImagem) ?>">
+                        <?php if (!empty($valorImagem)): ?>
+                            <div style="margin-top: 10px;">
+                                <p>Imagem atual:</p>
+                                <img class="imagem-categoria" src="../<?= htmlspecialchars($valorImagem) ?>"
+                                    alt="Imagem da categoria">
+                                   
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="grupo-botoes">

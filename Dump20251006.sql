@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `tbcategoria`;
 CREATE TABLE `tbcategoria` (
   `codigo_categoria` int NOT NULL AUTO_INCREMENT,
   `nome_categoria` varchar(50) NOT NULL,
-  `descricao_categoria` varchar(150) NOT NULL,
+  `descricao_categoria` varchar(255) NOT NULL,
   `imagem_categoria` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`codigo_categoria`),
   UNIQUE KEY `nome_categoria` (`nome_categoria`)

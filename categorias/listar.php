@@ -51,7 +51,7 @@ $categorias = $categoriaRepositorio->buscarTodos();
 
         <div class="topo-direita">
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="/ABrancao/logout.php" method="post" style="display:inline;">
+            <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
@@ -79,7 +79,8 @@ $categorias = $categoriaRepositorio->buscarTodos();
                             <td><?= htmlspecialchars($categoria->getCodigo()) ?></td>
                             <td><?= htmlspecialchars($categoria->getNome()) ?></td>
                             <td><?= htmlspecialchars($categoria->getDescricao()) ?></td>
-                            <td><?= htmlspecialchars($categoria->getImagem()) ?></td>
+                            <td><img class="imagem-categoria" src="../<?= htmlspecialchars($categoria->getImagem()) ?>"
+                                    alt="Imagem da categoria"></td>
                             <td><a class="botao-editar" href="form.php?id=<?= $categoria->getCodigo() ?>">Editar</a></td>
                             <td>
                                 <form action="excluir.php" method="post">

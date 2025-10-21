@@ -49,7 +49,7 @@ function pode(string $perm): bool
 
         <div class="topo-direita">
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="/ABrancao/logout.php" method="post" style="display:inline;">
+            <form action="logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
