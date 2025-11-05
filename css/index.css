@@ -69,3 +69,15 @@ body {
     cursor: pointer;
     font-weight: bold;
 }
+
+.botao-publicar-memes {
+
+    background-color: #FFAE00;
+    color: #ffffff;
+    border: 1px solid, #ffffff;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
