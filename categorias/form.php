@@ -74,12 +74,15 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
         </div>
 
         <div class="container-admin-banner">
-            <a href="/ABrancao/dashboard.php">
+            <a href="/AhBrancao/dashboard.php">
                 <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao">
             </a>
         </div>
 
         <div class="topo-direita">
+            <form action="../memes/form.php" method="post" style="display:inline;">
+                <button type="submit" class="botao-publicar-memes">Publicar memes</button>
+            </form>
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
             <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>

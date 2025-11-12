@@ -50,6 +50,9 @@ $categorias = $categoriaRepositorio->buscarTodos();
         </div>
 
         <div class="topo-direita">
+            <form action="../memes/form.php" method="post" style="display:inline;">
+                <button type="submit" class="botao-publicar-memes">Publicar memes</button>
+            </form>
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
             <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>

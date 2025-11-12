@@ -48,7 +48,7 @@ function pode(string $perm): bool
         </div>
 
         <div class="topo-direita">
-            <form action="logout.php" method="post" style="display:inline;">
+            <form action="memes/form.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-publicar-memes">Publicar memes</button>
             </form>
             <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
