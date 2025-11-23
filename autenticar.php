@@ -28,7 +28,7 @@ if ($repo->autenticar($email, $senha)) {
     
     $funcao = $usuario->getfuncao();
     $nome = $usuario->getNome();
-    $_SESSION['usuario'] = $nome; 
+    $_SESSION['usuario'] = $usuario; 
     $_SESSION['permissoes'] = $funcao === 'Admin' ? ['usuarios.listar',  'memes.listar', 'categorias.listar', 'acessoNormal.listar'] : ['acessoNormal.listar'];
     header('Location: dashboard.php');
     exit;

@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../src/conexao-bd.php';
 require_once __DIR__ . '/../src/Modelo/Categoria.php';
 require_once __DIR__ . '/../src/Repositorio/CategoriaRepositorio.php';
+require __DIR__ . "/../src/Modelo/Usuario.php";
 
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -75,7 +76,7 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
 
         <div class="container-admin-banner">
             <a href="/AhBrancao/dashboard.php">
-                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao">
+                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
@@ -83,8 +84,12 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
             <form action="../memes/form.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-publicar-memes">Publicar memes</button>
             </form>
-            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
+            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado->getNome()); ?></span>
+            <a href="../usuarios/editar.php?id= <?= $usuarioLogado->getId() ?>">
+                <img class="imagem-avatar-topo" src="../<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
+                    alt="Imagem do Avatar">
+            </a>
+            <form action="../logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
@@ -121,9 +126,9 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
                         <?php if (!empty($valorImagem)): ?>
                             <div style="margin-top: 10px;">
                                 <p>Imagem atual:</p>
-                                <img class="imagem-categoria" src="../<?= htmlspecialchars($valorImagem) ?>"
+                                <img class="imagem-lista" src="../<?= htmlspecialchars($valorImagem) ?>"
                                     alt="Imagem da categoria">
-                                   
+
                             </div>
                         <?php endif; ?>
                     </div>

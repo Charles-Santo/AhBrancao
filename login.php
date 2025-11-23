@@ -66,8 +66,13 @@ $erro = $_GET['erro'] ?? '';
             </form>
         </main>
 
-        <img src="img/logo-AhBrancao.png" class="logo-rodape" alt="logo Ah Brancão">
+        <a href="index.php">
+            <img src="img/logo-AhBrancao.png" class="logo-rodape" alt="logo Ah Brancão">
+        </a>
     <?php endif; ?>
+
+    
+
 </body>
 
 </html>

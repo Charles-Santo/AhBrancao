@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/src/Modelo/Usuario.php';
+
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header('Location: login.php');
@@ -37,13 +39,15 @@ function pode(string $perm): bool
 
 <body class="pagina-dashboard">
     <header class="container-cabecalho">
-        <div class="topo-esquerda">
-            <span>Admin</span>
-        </div>
+        <?php if (pode('categorias.listar')): ?>
+            <div class="topo-esquerda">
+                <span>Admin</span>
+            </div>
+        <?php endif; ?>
 
         <div class="container-admin-banner">
             <a href="dashboard.php">
-                <img src="img\logo-AhBrancao.png" alt="logo-ah-brancao">
+                <img src="img\logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
@@ -51,7 +55,11 @@ function pode(string $perm): bool
             <form action="memes/form.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-publicar-memes">Publicar memes</button>
             </form>
-            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
+            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado->getNome()); ?></span>
+            <a href="usuarios/editar.php?id= <?= $usuarioLogado->getId() ?>">
+                <img class="imagem-avatar-topo" src="<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
+                    alt="Imagem do Avatar">
+            </a>
             <form action="logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
@@ -74,7 +82,7 @@ function pode(string $perm): bool
 
                 <?php if (pode('memes.listar')): ?>
                     <div class="container-card">
-                        <a class="card-opcao" href="memes/listar.php">
+                        <a class="card-opcao" href="memes/validacao.php">
 
                             <Img src="img/icone-avaliar.png" alt="icone de Avaliar Meme"></Img>
                         </a>
@@ -96,7 +104,7 @@ function pode(string $perm): bool
 
                 <?php if (pode('acessoNormal.listar')): ?>
                     <div class="container-card">
-                        <a class="card-opcao" href="memesVer/listar.php">
+                        <a class="card-opcao" href="index.php">
 
                             <img src="img/icone-acesso.png" alt="icone de Acesso">
                         </a>

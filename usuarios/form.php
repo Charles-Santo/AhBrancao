@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../src/Modelo/Usuario.php';
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header('Location: ../login.php');
@@ -12,7 +13,6 @@ if (!$usuarioLogado) {
 }
 
 require_once __DIR__ . '/../src/conexao-bd.php';
-require_once __DIR__ . '/../src/Modelo/Usuario.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 
 $repo = new UsuarioRepositorio($pdo);
@@ -40,6 +40,7 @@ $valorNome   = $modoEdicao ? $usuario->getNome() : '';
 $valorFuncao = $modoEdicao ? $usuario->getFuncao() : '';
 $valorEmail  = $modoEdicao ? $usuario->getEmail() : '';
 $valorSenha  = $modoEdicao ? $usuario->getSenha() : '';
+$valorAvatar = $modoEdicao ? $usuario->getAvatar() : '';
 
 $tituloPagina = $modoEdicao ? 'Editar Usuário' : 'Cadastrar Usuário';
 $textoBotao   = $modoEdicao ? 'Salvar Alterações' : 'Cadastrar Usuário';
@@ -70,18 +71,22 @@ $actionForm   = 'salvar.php';
         </div>
 
         <div class="container-admin-banner">
-            <a href="/ABrancao/dashboard.php">
-                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao">
+            <a href="../dashboard.php">
+                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
         <div class="topo-direita">
-            <span>Bem-vindo, <?= htmlspecialchars($usuarioLogado) ?></span>
+            <span>Bem-vindo, <?= htmlspecialchars($usuarioLogado->getNome()) ?></span>
+            <a href="editar.php?id= <?= $usuarioLogado->getId() ?>">
+                <img class="imagem-avatar-topo" src="../<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
+                    alt="Imagem do Avatar">
+            </a>
             <form action="../logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
-        
+
     </header>
 
     <main class="container-principal">
@@ -92,7 +97,7 @@ $actionForm   = 'salvar.php';
                 <?php if (isset($_GET['erro']) && $_GET['erro'] === 'campos'): ?>
                     <p class="mensagem-erro">Preencha todos os campos.</p>
                 <?php endif; ?>
-                <form action="<?= $actionForm ?>" method="post" class="form-produto">
+                <form action="<?= $actionForm ?>" method="post" class="form-produto" enctype="multipart/form-data">
                     <?php if ($modoEdicao): ?>
                         <input type="hidden" name="id" value="<?= (int)$usuario->getId() ?>">
                     <?php endif; ?>
@@ -113,14 +118,14 @@ $actionForm   = 'salvar.php';
                     </div>
 
                     <div>
-                        <label for="imagem">Imagem</label>
-                        <input id="imagem" name="imagem" type="file" placeholder="Insira a Imagem" accept="image/*" value="<?= htmlspecialchars($valorImagem) ?>">
-                        <?php if (!empty($valorImagem)): ?>
+                        <label for="avatar">Avatar</label>
+                        <input id="avatar" name="avatar" type="file" placeholder="Insira a Imagem" accept="image/*" value="<?= htmlspecialchars($valorAvatar) ?>">
+                        <?php if (!empty($valorAvatar)): ?>
                             <div style="margin-top: 10px;">
-                                <p>Imagem atual:</p>
-                                <img class="imagem-categoria" src="../<?= htmlspecialchars($valorImagem) ?>"
-                                    alt="Imagem da categoria">
-                                   
+                                <p>Avatar atual:</p>
+                                <img class="imagem-lista" src="../<?= htmlspecialchars($valorAvatar) ?>"
+                                    alt="Imagem do avatar">
+
                             </div>
                         <?php endif; ?>
                     </div>
@@ -157,4 +162,5 @@ $actionForm   = 'salvar.php';
         });
     </script>
 </body>
+
 </html>

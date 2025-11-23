@@ -20,6 +20,10 @@ body {
     position: relative;
 }
 
+.logo-header {
+    height: 60px;
+}
+
 
 .container-admin-banner {
     position: absolute;
@@ -30,9 +34,6 @@ body {
 }
 
 
-.container-cabecalho img {
-    height: 60px;
-}
 
 
 .topo-esquerda {
@@ -80,4 +81,87 @@ body {
     cursor: pointer;
     font-weight: bold;
 
+}
+
+.imagem-avatar-topo{
+    
+    width: 40px;
+    border: #ffffff solid 2px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.imagem-avatar-topo img{
+
+    
+    height: 40px;
+
+}
+
+.container-categorias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 72px;
+    
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 80%;
+    height: auto;
+}
+
+.cards-categorias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: #00000073 2px 2px 10px 0.4px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 246px;
+    height: 322px;
+    background-color: #ffffff;
+    border: #FFAE00 solid 4px;
+    gap: 20px;
+    
+}
+
+
+
+.cards-categorias {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cards-categorias:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+
+.cards-categorias img{
+    width: 230px;
+    height: 254px;
+    border: 0;
+    border-radius: 20px;
+    margin-top: -5px;
+
+}
+
+.cards-categorias p{
+    margin-top: -40px;
+    font-size: 18px;
+    color: #000000;
+}
+
+.titulo-inicio {
+    font-size: 36px;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 8px; 
+    margin-right: 55%;
+}
+
+.link-categoria {
+    text-decoration: none;
+    color: black;
 }

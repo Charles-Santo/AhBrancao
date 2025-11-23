@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . "/../src/Modelo/Usuario.php";
+
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
@@ -32,7 +34,7 @@ $categorias = $categoriaRepositorio->buscarTodos();
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="icon" href="../img/logo-AhBrancao.png" type="image/x-icon">
-    
+
     <title>Ah Brancão - Categoria</title>
 </head>
 
@@ -45,7 +47,7 @@ $categorias = $categoriaRepositorio->buscarTodos();
 
         <div class="container-admin-banner">
             <a href="../dashboard.php">
-                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao">
+                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
@@ -53,8 +55,12 @@ $categorias = $categoriaRepositorio->buscarTodos();
             <form action="../memes/form.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-publicar-memes">Publicar memes</button>
             </form>
-            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="/AhBrancao/logout.php" method="post" style="display:inline;">
+            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado->getNome()); ?></span>
+            <a href="../usuarios/editar.php?id= <?= $usuarioLogado->getId() ?>">
+                <img class="imagem-avatar-topo" src="../<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
+                    alt="Imagem do Avatar">
+            </a>
+            <form action="../logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
@@ -62,7 +68,7 @@ $categorias = $categoriaRepositorio->buscarTodos();
     <main class="container-principal">
         <h1>Admin</h1>
         <h2>Categoria</h2>
-        
+
         <section class="container-table">
 
             <table>
@@ -82,7 +88,7 @@ $categorias = $categoriaRepositorio->buscarTodos();
                             <td><?= htmlspecialchars($categoria->getCodigo()) ?></td>
                             <td><?= htmlspecialchars($categoria->getNome()) ?></td>
                             <td><?= htmlspecialchars($categoria->getDescricao()) ?></td>
-                            <td><img class="imagem-categoria" src="../<?= htmlspecialchars($categoria->getImagem()) ?>"
+                            <td><img class="imagem-lista" src="../<?= htmlspecialchars($categoria->getImagem()) ?>"
                                     alt="Imagem da categoria"></td>
                             <td><a class="botao-editar" href="form.php?id=<?= $categoria->getCodigo() ?>">Editar</a></td>
                             <td>

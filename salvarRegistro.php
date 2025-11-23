@@ -16,6 +16,18 @@ $email   = trim($_POST['email'] ?? '');
 $senha   = $_POST['senha'] ?? '';
 $senhaNovamente   = $_POST['senhaNovamente'] ?? '';
 
+$verificarNomeUsuario = $usuarioRepositorio->buscarPorNome($nome);
+$verficarEmailUsuario = $usuarioRepositorio->buscarPorEmail($email);
+
+if ($verificarNomeUsuario !== null || $verficarEmailUsuario !== null) {
+
+    header("Location: registrar.php?erro=jausado");
+    exit;
+}
+
+
+
+
 if ($nome === '' || $email === '' || $senha === '') {
     header("Location: registrar.php?erro=campos");
     exit;
@@ -25,6 +37,8 @@ if ($senha !== $senhaNovamente) {
     header("Location: registrar.php?erro=senhasDiferentes");
     exit;
 }
+
+
 
 
 

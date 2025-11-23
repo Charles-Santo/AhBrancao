@@ -1,11 +1,11 @@
 <?php
+require __DIR__ . "/../src/Modelo/Usuario.php";
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
 }
 require __DIR__ . "/../src/conexao-bd.php";
-require __DIR__ . "/../src/Modelo/Usuario.php";
 require __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
 
 $usuarioLogado = $_SESSION['usuario'] ?? null;
@@ -33,7 +33,7 @@ $usuarios = $usuarioRepositorio->buscarTodos();
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/login.css">
-    
+
     <title>Ah Brancão - Usuários</title>
 </head>
 
@@ -46,13 +46,17 @@ $usuarios = $usuarioRepositorio->buscarTodos();
 
         <div class="container-admin-banner">
             <a href="../dashboard.php">
-                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao">
+                <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
         <div class="topo-direita">
-            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado); ?></span>
-            <form action="/ABrancao/logout.php" method="post" style="display:inline;">
+            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado->getNome()); ?></span>
+            <a href="editar.php?id= <?= $usuarioLogado->getId() ?>">
+                <img class="imagem-avatar-topo" src="../<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
+                    alt="Imagem do Avatar">
+            </a>
+            <form action="../logout.php" method="post" style="display:inline;">
                 <button type="submit" class="botao-sair">Logout</button>
             </form>
         </div>
@@ -60,7 +64,7 @@ $usuarios = $usuarioRepositorio->buscarTodos();
     <main class="container-principal">
         <h1>Admin</h1>
         <h2>Usuários</h2>
-        
+
         <section class="container-table">
 
             <table>
@@ -82,7 +86,8 @@ $usuarios = $usuarioRepositorio->buscarTodos();
                             <td><?= htmlspecialchars($usuario->getNome()) ?></td>
                             <td><?= htmlspecialchars($usuario->getfuncao()) ?></td>
                             <td><?= htmlspecialchars($usuario->getEmail()) ?></td>
-                            <td><?= htmlspecialchars($usuario->getAvatar()) ?></td>
+                            <td><img class="imagem-lista" id="imagem-avatar" src="../<?= htmlspecialchars($usuario->getAvatar()) ?>"
+                                    alt="Imagem do Avatar"></td>
                             <td><a class="botao-editar" href="form.php?id=<?= $usuario->getId() ?>">Editar</a></td>
                             <td>
                                 <form action="excluir.php" method="post">
