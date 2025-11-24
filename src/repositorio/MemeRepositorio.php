@@ -23,9 +23,26 @@ class MemeRepositorio
             $d['imagem_meme']      ?? '',
             $d['idioma_meme']      ?? '',
             $d['categorias_id']   ?? [],
-            $d['id_usuario_autor'] ?? null
+            $d['id_usuario_autor'] ?? null,
+            $d['codigo_admin_aprovador'] ?? null
         );
     }
+
+    public function buscarMemesUsuario($idUusario){
+
+        $sql = "SELECT m.codigo_meme, m.titulo_meme, m.texto_meme, m.imagem_meme, m.idioma_meme, m.id_usuario_autor, m.codigo_admin_aprovador
+                FROM tbMeme m WHERE m.id_usuario_autor = ? 
+                ORDER BY m.titulo_meme";
+
+        $st = $this->pdo->prepare($sql);
+        $st->execute([$idUusario]);
+
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(fn($r) => $this->formarObjeto($r), $rs);
+    }
+
+    
 
     public function contarTotalMemeIdioma($idioma)
     {

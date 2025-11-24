@@ -81,7 +81,7 @@ function pode(string $perm): bool
 
 
             <div class="container-admin-banner">
-                <a href="/dashboard.php">
+                <a href="dashboard.php">
                     <img src="img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
                 </a>
             </div>
