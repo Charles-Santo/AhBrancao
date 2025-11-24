@@ -25,6 +25,9 @@ $textoBotao   = 'Registrar Usuário';
         <section class="card-login">
             <div class="conteudo-login">
                 <h1><?= htmlspecialchars($tituloPagina) ?></h1>
+                <?php if (isset($_GET['erro']) &&   $_GET['erro'] === 'jausado'): ?>
+                    <p class="mensagem-erro">O e-mail ou nome de usuario digitado já estão sendo usados.</p>
+                <?php endif; ?>
                 <?php if (isset($_GET['erro']) &&   $_GET['erro'] === 'campos'): ?>
                     <p class="mensagem-erro">Preencha e-mail e senha.</p>
                 <?php endif; ?>

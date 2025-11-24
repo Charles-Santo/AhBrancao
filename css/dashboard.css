@@ -33,13 +33,13 @@
     gap: 70px;
     margin-top: 20px;
     width: 100%;
-    max-width: 950px; /* largura total suficiente para 2 cards + gap */
+    max-width: 950px; 
     margin-left: auto;
     margin-right: auto;
 }
 
 .container-card {
-    width: 432px; /* largura fixa dos cards */
+    width: 432px; 
     height: 160px;
     background-color: white;
     border: 2px solid #FFAE00;
@@ -48,6 +48,16 @@
     align-items: center;
     justify-content: center;
 }
+
+.container-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.container-card:hover {
+    transform: scale(1.15); 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
 
 .container-card img{
 

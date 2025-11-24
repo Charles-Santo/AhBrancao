@@ -1,10 +1,5 @@
 <?php
-
-require_once __DIR__ . '/../src/conexao-bd.php';
-require_once __DIR__ . '/../src/Modelo/Categoria.php';
-require_once __DIR__ . '/../src/Repositorio/CategoriaRepositorio.php';
-require __DIR__ . "/../src/Modelo/Usuario.php";
-
+require_once __DIR__ . '/../src/Modelo/Usuario.php';
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header('Location: ../login.php');
@@ -17,39 +12,39 @@ if (!$usuarioLogado) {
     exit;
 }
 
+require_once __DIR__ . '/../src/conexao-bd.php';
+require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
 
-$repo = new CategoriaRepositorio($pdo);
+$repo = new UsuarioRepositorio($pdo);
 
 
-$codigo = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $modoEdicao = false;
-$categoria = null;
+$usuario = null;
 
-if ($codigo) {
-
+if ($id) {
     if (method_exists($repo, 'buscar')) {
-        $categoria = $repo->buscar($codigo);
+        $usuario = $repo->buscar($id);
     }
 
-    if ($categoria) {
+    if ($usuario) {
         $modoEdicao = true;
     } else {
-
         header('Location: listar.php');
         exit;
     }
 }
 
 
-$valorNome = $modoEdicao ? $categoria->getNome() : '';
-$valorDescricao = $modoEdicao ? $categoria->getDescricao() : '';
-$valorImagem = $modoEdicao ? $categoria->getImagem() : '';
+$valorNome   = $modoEdicao ? $usuario->getNome() : '';
+$valorFuncao = $modoEdicao ? $usuario->getFuncao() : '';
+$valorEmail  = $modoEdicao ? $usuario->getEmail() : '';
+$valorSenha  = $modoEdicao ? $usuario->getSenha() : '';
+$valorAvatar = $modoEdicao ? $usuario->getAvatar() : '';
 
-
-
-$tituloPagina = $modoEdicao ? 'Editar Categoria' : 'Cadastrar Categoria';
-$textoBotao = $modoEdicao ? 'Salvar Alterações' : 'Cadastrar Categoria';
-$actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
+$tituloPagina = $modoEdicao ? 'Editar Usuário' : 'Cadastrar Usuário';
+$textoBotao   = $modoEdicao ? 'Salvar Alterações' : 'Cadastrar Usuário';
+$actionForm   = 'salvar.php';
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -57,6 +52,7 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($tituloPagina) ?> - Ah Brancão</title>
+
     <link rel="icon" href="../img/logo-AhBrancao.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -75,17 +71,14 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
         </div>
 
         <div class="container-admin-banner">
-            <a href="/AhBrancao/dashboard.php">
+            <a href="../dashboard.php">
                 <img src="../img/logo-AhBrancao.png" alt="logo-ah-brancao" class="logo-header">
             </a>
         </div>
 
         <div class="topo-direita">
-            <form action="../memes/form.php" method="post" style="display:inline;">
-                <button type="submit" class="botao-publicar-memes">Publicar memes</button>
-            </form>
-            <span>Bem-vindo, <?php echo htmlspecialchars($usuarioLogado->getNome()); ?></span>
-            <a href="../usuarios/editar.php?id= <?= $usuarioLogado->getId() ?>">
+            <span>Bem-vindo, <?= htmlspecialchars($usuarioLogado->getNome()) ?></span>
+            <a href="editar.php?id= <?= $usuarioLogado->getId() ?>">
                 <img class="imagem-avatar-topo" src="../<?= htmlspecialchars($usuarioLogado->getAvatar()) ?>"
                     alt="Imagem do Avatar">
             </a>
@@ -94,43 +87,58 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
             </form>
         </div>
 
-
-
     </header>
+
     <main class="container-principal">
         <h1>Admin</h1>
         <h2><?= htmlspecialchars($tituloPagina) ?></h2>
         <section class="container-form">
             <div class="formulario">
-                <?php if (isset($_GET['erro']) &&   $_GET['erro'] === 'campos'): ?>
+                <?php if (isset($_GET['erro']) && $_GET['erro'] === 'campos'): ?>
                     <p class="mensagem-erro">Preencha todos os campos.</p>
                 <?php endif; ?>
-                <form action="<?= $actionForm ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= $actionForm ?>" method="post" class="form-produto" enctype="multipart/form-data">
                     <?php if ($modoEdicao): ?>
-                        <input type="hidden" name="codigo" value="<?= (int)$categoria->getCodigo() ?>">
+                        <input type="hidden" name="id" value="<?= (int)$usuario->getId() ?>">
                     <?php endif; ?>
 
                     <div>
                         <label for="nome">Nome</label>
-                        <input id="nome" name="nome" type="text" placeholder="Digite o Nome" value="<?= htmlspecialchars($valorNome) ?>">
+                        <input id="nome" name="nome" type="text" value="<?= htmlspecialchars($valorNome) ?>">
                     </div>
 
                     <div>
-                        <label for="descricao">Descrição</label>
-                        <input id="descricao" name="descricao" type="text" placeholder="Digite a Descrição" value="<?= htmlspecialchars($valorDescricao) ?>">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" value="<?= htmlspecialchars($valorEmail) ?>">
                     </div>
 
                     <div>
-                        <label for="imagem">Imagem</label>
-                        <input id="imagem" name="imagem" type="file" placeholder="Insira a Imagem" accept="image/*" value="<?= htmlspecialchars($valorImagem) ?>">
-                        <?php if (!empty($valorImagem)): ?>
+                        <label for="senha">Senha</label>
+                        <input id="senha" name="senha" type="password" value="<?= htmlspecialchars($valorSenha) ?>">
+                    </div>
+
+                    <div>
+                        <label for="avatar">Avatar</label>
+                        <input id="avatar" name="avatar" type="file" placeholder="Insira a Imagem" accept="image/*" value="<?= htmlspecialchars($valorAvatar) ?>">
+                        <?php if (!empty($valorAvatar)): ?>
                             <div style="margin-top: 10px;">
-                                <p>Imagem atual:</p>
-                                <img class="imagem-lista" src="../<?= htmlspecialchars($valorImagem) ?>"
-                                    alt="Imagem da categoria">
+                                <p>Avatar atual:</p>
+                                <img class="imagem-lista" src="../<?= htmlspecialchars($valorAvatar) ?>"
+                                    alt="Imagem do avatar">
 
                             </div>
                         <?php endif; ?>
+                    </div>
+
+                    <div>
+                        <label>Função</label>
+                        <label>
+                            <input type="radio" name="funcao" value="User" <?= $valorFuncao === 'User' ? 'checked' : '' ?>> Usuário Comum
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="funcao" value="Admin" <?= $valorFuncao === 'Admin' ? 'checked' : '' ?>> Usuário Administrador
+                        </label>
                     </div>
 
                     <div class="grupo-botoes">
@@ -141,17 +149,14 @@ $actionForm = $modoEdicao ? 'salvar.php' : 'salvar.php';
             </div>
         </section>
     </main>
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-
             const mensagens = document.querySelectorAll('.mensagem-erro, .mensagem-ok');
-
             mensagens.forEach(msg => {
-
                 setTimeout(() => {
                     msg.classList.add('oculto');
                 }, 5000);
-
                 msg.addEventListener('transitionend', () => msg.remove());
             });
         });
