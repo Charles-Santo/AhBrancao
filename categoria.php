@@ -22,8 +22,8 @@ $idiomaCategoria = $_GET['idioma'] ?? null;
 
 
 $paginaAtual = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT) ?: 1;
-$itensPorPagina = filter_input(INPUT_GET, 'itens', FILTER_VALIDATE_INT) ?: 5; 
-$ordem = $_GET['ordem'] ?? 'data_envio'; 
+$itensPorPagina = filter_input(INPUT_GET, 'itens', FILTER_VALIDATE_INT) ?: 5;
+$ordem = $_GET['ordem'] ?? 'data_envio';
 $direcao = $_GET['direcao'] ?? 'DESC';
 
 
@@ -56,7 +56,8 @@ $totalPaginas = ceil($totalMemes / $itensPorPagina);
 
 
 
-function urlPaginacao(array $novosParams) {
+function urlPaginacao(array $novosParams)
+{
     $params = $_GET;
     $params = array_merge($params, $novosParams);
     return '?' . http_build_query($params);
@@ -85,10 +86,12 @@ function pode(string $perm): bool
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/meme.css">
 
-    <title>Ah Brancão - Inicio</title>
-    
-    
-    
+    <?php if ($idCategoria !== null): ?>
+        <title>Ah Brancão - <?= htmlspecialchars($categoria->getNome()) ?></title>
+    <?php else:  ?>
+        <title>Ah Brancão - <?= htmlspecialchars($idiomaCategoria) ?></title>
+    <?php endif ?>
+
 </head>
 
 <body>
@@ -145,10 +148,10 @@ function pode(string $perm): bool
             <h2 class="">Memes da Categoria <?= htmlspecialchars($categoria->getNome()) ?> </h2>
         <?php endif; ?>
 
-        
+
         <section class="controles-lista">
             <form method="GET" action="">
-        
+
                 <?php if ($idCategoria): ?>
                     <input type="hidden" name="id" value="<?= htmlspecialchars($idCategoria) ?>">
                 <?php endif; ?>
@@ -173,9 +176,9 @@ function pode(string $perm): bool
                     </select>
                 </div>
             </form>
-            <div class="memes-encontrados">
-                <span>Total: <?= $totalMemes ?> memes encontrados.</span>
-            </div>
+
+            <span>Total: <?= $totalMemes ?> memes encontrados.</span>
+
         </section>
 
         <section class="container-memes">
@@ -193,42 +196,62 @@ function pode(string $perm): bool
                     <img src="<?= htmlspecialchars($meme->getImagemMeme()) ?>" alt="Meme">
                     <div class="footer-meme">
                         <p class="descricao-meme"><?= htmlspecialchars($meme->getTextoMeme()) ?></p>
+                        <?php
+                        if (pode('categorias.listar')):
+                        ?>
+
+                            <div class="opcoes-meme-excluir">
+
+                                <form action="memes/excluir.php" method="post">
+
+                                    <input type="hidden" name="id" value="<?= $meme->getId() ?>">
+                                    <input type="submit" value="apagar">
+
+                                </form>
+
+
+                            </div>
+
+                        <?php endif; ?>
                         <div class="usuario-meme">
-                            <?php if($usuario): ?>
-                                <span><?= htmlspecialchars($usuario->getNome()) ?></span>
-                                <img class="imagem-avatar-meme" src="<?= htmlspecialchars($usuario->getAvatar()) ?>" alt="Avatar do Usuário">
-                            <?php else: ?>
-                                <span>Usuário Desconhecido</span>
-                            <?php endif; ?>
+                            <span><?= htmlspecialchars($usuario->getNome()) ?></span>
+                            <img class="imagem-avatar-meme" src="<?= htmlspecialchars($usuario->getAvatar()) ?>" alt="Avatar do Usuário">
                         </div>
+
                     </div>
                 </div>
             <?php endforeach; ?>
         </section>
 
-        
+
         <?php if ($totalPaginas > 1): ?>
             <div class="paginacao">
-                
+
                 <?php if ($paginaAtual > 1): ?>
                     <a href="<?= urlPaginacao(['pagina' => $paginaAtual - 1]) ?>">Anterior</a>
                 <?php endif; ?>
 
-                
+
                 <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
                     <?php if ($i == $paginaAtual): ?>
                         <span class="ativo"><?= $i ?></span>
                     <?php else: ?>
                         <a href="<?= urlPaginacao(['pagina' => $i]) ?>"><?= $i ?></a>
                     <?php endif; ?>
-                <?php endfor; ?>
+                    <?php endfor; ?>
 
-                
-                <?php if ($paginaAtual < $totalPaginas): ?>
-                    <a href="<?= urlPaginacao(['pagina' => $paginaAtual + 1]) ?>">Próximo</a>
-                <?php endif; ?>
+
+                    <?php if ($paginaAtual < $totalPaginas): ?>
+                        <a href="<?= urlPaginacao(['pagina' => $paginaAtual + 1]) ?>">Próximo</a>
+                    <?php endif; ?>
             </div>
         <?php endif; ?>
+
+        <form action="relatorio/gerador-pdf.php" method="post" style="display:inline;">
+            <input type="submit" class="botao-cadastrar" value="Baixar Relatório">
+            <input type="hidden" name="codigo" value="<?= $categoria->getCodigo() ?>">
+            <input type="hidden" name="idioma" value="<?= $idiomaCategoria ?>">
+        </form>
 
     </main>
 </body>

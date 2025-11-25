@@ -111,6 +111,16 @@ function pode(string $perm): bool
                         <h2>Ver Memes</h2>
                     </div>
                 <?php endif; ?>
+
+                <?php if (pode('acessoNormal.listar')): ?>
+                    <div class="container-card">
+                        <a class="card-opcao" href="memes/verMemesUsuario.php">
+
+                            <img src="img/icone-acesso.png" alt="icone de Acesso">
+                        </a>
+                        <h2>Ver Seus Memes</h2>
+                    </div>
+                <?php endif; ?>
         </div>
         </section>
         </div>
