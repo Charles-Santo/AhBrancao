@@ -28,7 +28,8 @@ class MemeRepositorio
         );
     }
 
-    public function buscarMemesUsuario($idUusario){
+    public function buscarMemesUsuario($idUusario)
+    {
 
         $sql = "SELECT m.codigo_meme, m.titulo_meme, m.texto_meme, m.imagem_meme, m.idioma_meme, m.id_usuario_autor, m.codigo_admin_aprovador
                 FROM tbMeme m WHERE m.id_usuario_autor = ? 
@@ -42,7 +43,7 @@ class MemeRepositorio
         return array_map(fn($r) => $this->formarObjeto($r), $rs);
     }
 
-    
+
 
     public function contarTotalMemeIdioma($idioma)
     {
@@ -54,6 +55,18 @@ class MemeRepositorio
         $st->execute([$idioma]);
         $resultado = $st->fetch(PDO::FETCH_ASSOC);
         return (int) $resultado['total'];
+    }
+
+    public function buscarSemPaginaMemeIdioma($idioma)
+    {
+
+        $sql = "SELECT * FROM tbMeme m
+            WHERE idioma_meme = ?";
+
+        $st = $this->pdo->prepare($sql);
+        $st->execute([$idioma]);
+        $rs = $st->fetch(PDO::FETCH_ASSOC);
+        return array_map(fn($r) => $this->formarObjeto($r), $rs);
     }
 
     public function buscarPaginadoCategoria(int $codigoCategoria, int $limite, int $offset, ?string $ordem = 'data_envio', ?string $direcao = 'DESC'): array
@@ -160,7 +173,7 @@ class MemeRepositorio
 
     public function buscarTodos(): array
     {
-        $sql = "SELECT codigo_meme, titulo_meme, texto_meme, imagem_meme, idioma_meme 
+        $sql = "SELECT codigo_meme, titulo_meme, texto_meme, imagem_meme, idioma_meme, id_usuario_autor
                 FROM tbMeme ORDER BY titulo_meme";
 
         $rs = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);

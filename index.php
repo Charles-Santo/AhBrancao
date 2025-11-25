@@ -127,12 +127,12 @@ function pode(string $perm): bool
                     <p class="nome-idioma">Português</p>
                 </div>
             </a>
-            <a href="#" class="link-categoria">
+            <a href="categoria.php?idioma=inglês" class="link-categoria">
                 <div class="cards-categorias">
-                    <a href="categoria.php?idioma=inglês" class="link-categoria">
-                        <img class="" src="img/bandeira-inglaterra.png">
-                        <p class="nome-idioma">Inglês</p>
-                    </a>
+
+                    <img class="" src="img/bandeira-inglaterra.png">
+                    <p class="nome-idioma">Inglês</p>
+
                 </div>
             </a>
             <a href="categoria.php?idioma=espanhol" class="link-categoria">

@@ -86,9 +86,11 @@ function pode(string $perm): bool
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/meme.css">
 
-    <title>Ah Brancão - Inicio</title>
-
-
+    <?php if ($idCategoria !== null): ?>
+        <title>Ah Brancão - <?= htmlspecialchars($categoria->getNome()) ?></title>
+    <?php else:  ?>
+        <title>Ah Brancão - <?= htmlspecialchars($idiomaCategoria) ?></title>
+    <?php endif ?>
 
 </head>
 
@@ -195,27 +197,27 @@ function pode(string $perm): bool
                     <div class="footer-meme">
                         <p class="descricao-meme"><?= htmlspecialchars($meme->getTextoMeme()) ?></p>
                         <?php
-                        if (pode('categorias.listar')):         
+                        if (pode('categorias.listar')):
                         ?>
 
-                        <div class="opcoes-meme-excluir">
+                            <div class="opcoes-meme-excluir">
 
-                            <form action="memes/excluir.php" method="post">
+                                <form action="memes/excluir.php" method="post">
 
-                                <input type="hidden" name="id" value="<?= $meme->getId() ?>">
-                                <input type="submit" value="apagar">
+                                    <input type="hidden" name="id" value="<?= $meme->getId() ?>">
+                                    <input type="submit" value="apagar">
 
-                            </form>
+                                </form>
 
 
-                        </div>
+                            </div>
 
                         <?php endif; ?>
                         <div class="usuario-meme">
-                                <span><?= htmlspecialchars($usuario->getNome()) ?></span>
-                                <img class="imagem-avatar-meme" src="<?= htmlspecialchars($usuario->getAvatar()) ?>" alt="Avatar do Usuário">                            
+                            <span><?= htmlspecialchars($usuario->getNome()) ?></span>
+                            <img class="imagem-avatar-meme" src="<?= htmlspecialchars($usuario->getAvatar()) ?>" alt="Avatar do Usuário">
                         </div>
-                        
+
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -236,14 +238,20 @@ function pode(string $perm): bool
                     <?php else: ?>
                         <a href="<?= urlPaginacao(['pagina' => $i]) ?>"><?= $i ?></a>
                     <?php endif; ?>
-                <?php endfor; ?>7
+                    <?php endfor; ?>
 
 
-                <?php if ($paginaAtual < $totalPaginas): ?>
-                    <a href="<?= urlPaginacao(['pagina' => $paginaAtual + 1]) ?>">Próximo</a>
-                <?php endif; ?>
+                    <?php if ($paginaAtual < $totalPaginas): ?>
+                        <a href="<?= urlPaginacao(['pagina' => $paginaAtual + 1]) ?>">Próximo</a>
+                    <?php endif; ?>
             </div>
         <?php endif; ?>
+
+        <form action="relatorio/gerador-pdf.php" method="post" style="display:inline;">
+            <input type="submit" class="botao-cadastrar" value="Baixar Relatório">
+            <input type="hidden" name="codigo" value="<?= $categoria->getCodigo() ?>">
+            <input type="hidden" name="idioma" value="<?= $idiomaCategoria ?>">
+        </form>
 
     </main>
 </body>
