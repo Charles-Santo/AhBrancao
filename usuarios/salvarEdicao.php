@@ -3,6 +3,7 @@ require __DIR__ . "/../src/conexao-bd.php";
 require __DIR__ . "/../src/Modelo/Usuario.php";
 require __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
 
+session_start();
 $repo = new UsuarioRepositorio($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -12,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $id     = isset($_POST['id']) && $_POST['id'] !== '' ? (int)$_POST['id'] : null;
 $nome   = trim($_POST['nome']   ?? '');
-$funcao = trim($_POST['funcao'] ?? 'User');
+$usuario = $_SESSION['usuario'];
 $email  = trim($_POST['email']  ?? '');
 $senha  = $_POST['senha'] ?? '';
-
+$funcao = $usuario->getFuncao();
 
 if ($nome === '' || $email === '' || (!$id && $senha === '')) {
     header('Location: form.php' . ($id ? '?id=' . $id . '&erro=campos' : '?erro=campos'));

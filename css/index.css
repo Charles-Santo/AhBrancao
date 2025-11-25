@@ -89,6 +89,7 @@ body {
     border: #ffffff solid 2px;
     border-radius: 50%;
     object-fit: cover;
+    height: 40px;
 }
 
 .imagem-avatar-topo img{
