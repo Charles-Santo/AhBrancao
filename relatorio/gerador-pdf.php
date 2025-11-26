@@ -24,7 +24,7 @@ $dompdf->setPaper('A4');
 
 $dompdf->render();
 
-$filename = 'Relatorio-produtos-' . date('dmY') . '.pdf';
+$filename = 'Relatorio-Memes-' . date('dmY') . '.pdf';
 
 
 
