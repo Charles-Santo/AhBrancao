@@ -11,8 +11,10 @@ if (!isset($_SESSION['usuario'])) {
 
 require __DIR__ . "/../src/conexao-bd.php";
 require __DIR__ . "/../src/Modelo/Meme.php";
+require __DIR__ . "/../src/Modelo/Categoria.php";
 require __DIR__ . "/../src/Repositorio/MemeRepositorio.php";
 require __DIR__ . "/../src/Repositorio/UsuarioRepositorio.php";
+require __DIR__ . "/../src/Repositorio/CategoriaRepositorio.php";
 
 $usuarioLogado = $_SESSION['usuario'] ?? null;
 if (!$usuarioLogado) {
@@ -21,6 +23,7 @@ if (!$usuarioLogado) {
 }
 $usuarioRepositorio = new UsuarioRepositorio($pdo);
 $memeRepositorio = new MemeRepositorio($pdo);
+$categoriaRepositorio = new CategoriaRepositorio($pdo);
 $memesPendentes = $memeRepositorio->buscarMemesPendentes()
 ?>
 <!doctype html>
@@ -80,7 +83,7 @@ $memesPendentes = $memeRepositorio->buscarMemesPendentes()
 
                 $idUsuario = $meme->getIdUsuarioAutor();
                 $usuario = $usuarioRepositorio->buscar($idUsuario);
-
+                $categoriasId = $meme->getCategoriasId();
                 ?>
 
 
@@ -95,7 +98,15 @@ $memesPendentes = $memeRepositorio->buscarMemesPendentes()
                     <div class="footer-meme">
                         <p class="descricao-meme"><?= htmlspecialchars($meme->getTextoMeme()) ?></p>
 
+                        <div class="listar-categorias-meme">
+                            <?php foreach ($categoriasId as $categoriaId):
+                                $categoria = $categoriaRepositorio->buscar($categoriaId) ?>
 
+                                <img src="../<?= htmlspecialchars($categoria->getImagem())?>">
+                                <p class="descricao-meme"> <?= htmlspecialchars($categoria->getNome()) ?></p>
+                                <br>
+                            <?php endforeach ?>
+                        </div>
                         <div class="usuario-meme">
                             <span><?= htmlspecialchars($usuario->getNome()) ?></span>
                             <img class="imagem-avatar-meme" src="../<?= htmlspecialchars($usuario->getAvatar()) ?>" alt="Avatar do Usuário">

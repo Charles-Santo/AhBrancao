@@ -10,6 +10,20 @@
     padding-bottom: 50px;
 }
 
+.cards-memes .listar-categorias-meme img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover; 
+    vertical-align: middle; 
+}
+
+.listar-categorias-meme{
+
+    margin-top: -10px;
+
+}
+
+
 
 .cards-memes {
     display: flex;

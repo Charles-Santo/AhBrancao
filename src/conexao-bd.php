@@ -1,6 +1,6 @@
 <?php
     $pdo = new PDO(
-        'mysql:host=localhost;dbname=db_ahbrancao;charset=utf8mb4','root','root',
+        'mysql:host=localhost;dbname=db_ahbrancao;charset=utf8mb4','root','2352',
         [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

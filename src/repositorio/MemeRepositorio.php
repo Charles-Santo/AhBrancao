@@ -22,7 +22,7 @@ class MemeRepositorio
             $d['texto_meme']   ?? '',
             $d['imagem_meme']      ?? '',
             $d['idioma_meme']      ?? '',
-            $d['categorias_id']   ?? [],
+            $categorias,
             $d['id_usuario_autor'] ?? null,
             $d['codigo_admin_aprovador'] ?? null
         );
